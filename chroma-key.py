@@ -34,14 +34,18 @@ class Image:
         cv2.imshow('', erosion)
         cv2.waitKey()
 
-    def add_background(self, ):
+    def add_background(self):
         mask = self.__create_mask()
         erosion = self.__create_erosion(mask)
         imask = erosion == 255
         green = np.zeros_like(self.image_array, np.uint8)
-        green[imask]= self.image_array[imask]
-        cv2.imshow('', green)
+        get_image = requests.get('https://wallpaperaccess.com/full/2112553.jpg', stream=True).raw
+        vetor_image =  np.asarray(bytearray(get_image.read()), dtype="uint8")
+        decoded_image = cv2.imdecode(vetor_image, cv2.IMREAD_COLOR)
+        decoded_image[imask]= self.image_array[imask]
+        cv2.imshow('', decoded_image)
         cv2.waitKey()
+        
         
 
 get_image = requests.get('https://i.stack.imgur.com/Fq8hA.png', stream=True).raw
@@ -49,12 +53,10 @@ vetor_image =  np.asarray(bytearray(get_image.read()), dtype="uint8")
 decoded_image = cv2.imdecode(vetor_image, cv2.IMREAD_COLOR)
 
 
-
-
 image = Image(decoded_image)
-image.show_image()
+# image.show_image()
 image.show_silhouette()
-image.invert_image()
-image.add_background()
+# image.invert_image()
+# image.add_background()
 
 
