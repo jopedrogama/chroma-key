@@ -41,7 +41,7 @@ class Image:
         green = np.zeros_like(self.image_array, np.uint8)
         get_image = requests.get('https://wallpaperaccess.com/full/2112553.jpg', stream=True).raw
         vetor_image =  np.asarray(bytearray(get_image.read()), dtype="uint8")
-        decoded_image = cv2.imdecode(vetor_image, cv2.IMREAD_COLOR)
+        decoded_image = cv2.imdecode(vetor_image, cv2.IMREAD_COLOR)git s
         decoded_image[imask]= self.image_array[imask]
         cv2.imshow('', decoded_image)
         cv2.waitKey()
@@ -53,9 +53,11 @@ vetor_image =  np.asarray(bytearray(get_image.read()), dtype="uint8")
 decoded_image = cv2.imdecode(vetor_image, cv2.IMREAD_COLOR)
 
 
+print(decoded_image)
+
 image = Image(decoded_image)
 # image.show_image()
-image.show_silhouette()
+# image.show_silhouette()
 # image.invert_image()
 # image.add_background()
 
